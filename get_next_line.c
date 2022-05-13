@@ -5,7 +5,7 @@ int ft_strlen_to(char *str,char to)
 {
     int a;
 
-    a = -1;
+    a = 0;
     while(str[++a] != to);
     return (a);
 }
@@ -58,10 +58,9 @@ char *ft_newline(char *line)
 char *get_next_line(int fd)
 {
     static t_data data;
-    static int num = -1;
     if(fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
-    if(++num == 0 || data.buffer[fd] == NULL)
+    if(data.buffer[fd] == NULL)
     {
         data.a = 0;
         data.buf[1] = 0;
@@ -86,12 +85,18 @@ int main()
 {
     int fd;
     int fd2;
+    int loop;
+    char *line;
 
     fd = open("get_next_line.c", O_RDWR);
     fd2 = open("text", O_RDWR);
-    printf("%s",get_next_line(fd));
-    printf("%s",get_next_line(fd2));
-    printf("%s",get_next_line(fd));
-    printf("%s",get_next_line(fd2));
-
+    loop = 13;
+    while(--loop)
+    {
+        line = get_next_line(fd2);
+        printf("%s",line);
+        free(line);
+    }
+    close(fd);
+    close(fd2);
 }
