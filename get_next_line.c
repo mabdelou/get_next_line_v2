@@ -1,5 +1,6 @@
 #include "get_next_line.h"
 
+
 int ft_strlen_to(char *str,char to)
 {
     int a;
